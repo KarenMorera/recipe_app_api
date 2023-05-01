@@ -24,20 +24,29 @@ EXPOSE 8000
 
 
 #Runs a command in our alpine image that we are using when building our image.
+
 #Meaning of the commands line by line: 
+
 #Creates a new virtual environment that we are going to use to build out dependencies. 
 #Specify the full path of out virtual environment, upgrade pip for the venv that we just created. 
+#Install the postgresql-client, this is the package that we need installed in our alpine image, needs to stay inside the docker image. 
+#Sets a virtual dependency package, groups the packages that we installed, this will be useful to delete them later. 
+#packages that are needed to be installed inside the virtual dependency. 
 #We install the list of requirements in out docker image. 
 #We remove the tmp directory, to delete dependencies, keeping it lightweight, saving space. 
-#adds a new user inside our image, best practice not to use the root user. If this is not specified, the only user
-#available in alpine image is the root user. Root user has full access. 
+#We recomve the packages that we installed before, we delete the virtual package. 
+#adds a new user inside our image, best practice not to use the root user. If this is not specified, the only user available in alpine image is the root user. Root user has full access. 
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true"]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \
