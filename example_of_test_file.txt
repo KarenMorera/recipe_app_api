@@ -1,4 +1,5 @@
 """This file should be created when creating the project, in my case it did not so I created it myself"""
+"""This file should be named tests or start with the name test_"""
 
 """Sample tests"""
 
