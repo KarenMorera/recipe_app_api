@@ -20,7 +20,9 @@ services:
       - .app:/core
 #Command used to run the service. 
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db && configs:
+             python manage.py migrate && configs:
+             python manage.py runserver 0.0.0.0:8000"
     #These should match the credentials that we have in the db service. 
     environment:
       - DB_HOST=db
