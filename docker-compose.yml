@@ -14,7 +14,7 @@ services:
 #want to connect to our server. 
     ports: 
       - "8000:8000"
-#odd way of mapping directories from our system into the docket container. 
+#our way of mapping directories from our system into the docket container. 
     volumes: 
       - .app:/app
 #Command used to run the service. 

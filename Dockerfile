@@ -15,6 +15,7 @@ ARG DEV=false
 COPY ./requirements.txt /tmp/requirements.txt 
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt 
 COPY ./.app /.app
+COPY ./.app/core .app/core
 #working directory, default directory where out command are going to be run inside our docker image. 
 WORKDIR /.app 
 #expose port 8000 of our container to our machine. 
