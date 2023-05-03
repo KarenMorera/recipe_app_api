@@ -1,3 +1,5 @@
-from django.contrib import admin
+"""Django admin customization"""
 
-# Register your models here.
+from django.contrib.admin import admin 
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+#The 
