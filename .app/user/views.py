@@ -27,3 +27,5 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
         return self.request.user
 
 #This comment is in branch TestMerge
+
+#This comment is for branch TestMerge
