@@ -48,3 +48,5 @@ class ModelTests(TestCase):
         #is_superuser is a field provided by PermissionsMixin
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+       
+    #Comment added to main branch code from PC. 
