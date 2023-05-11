@@ -50,3 +50,4 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_staff)
        
     #Comment added to main branch code from PC. 
+    #Comment added in test merge branch. Should not sincronize with main. 
