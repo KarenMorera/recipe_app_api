@@ -5,6 +5,10 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from user.serializers import (UserSerializer, AuthTokenSerializer )
 
+from django.contrib.auth import get_user_model
+
+from core.models import User
+
 class CreateUserView(generics.CreateAPIView): 
     """Create a new user in the system"""
     serializer_class = UserSerializer
@@ -25,5 +29,6 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
     def get_object(self): 
         """Retrieve and return the authenticated user"""
         return self.request.user
+    
 
 #This comment is in branch TestMerge

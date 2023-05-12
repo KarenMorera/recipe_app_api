@@ -41,5 +41,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return serializers.RecipeSerializer
         
         return self.serializer_class
+    
+    def perform_create(self, serializer): 
+        """Create a new recipe"""
+        """When we perform a creating of a recioe using the Viewset create method, this method will be called."""
+        """Since it passes a serializer, it is expected that the data has been validated already"""
+        """This is to assigned the authenticated user, this makes sure the correct user is assigned."""
+        serializer.save(user = self.request.user)
 
 
