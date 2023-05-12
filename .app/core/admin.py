@@ -48,3 +48,4 @@ class UserAdmin(BaseUserAdmin):
 
 #Here we register the model to be displayed in the django admin page. 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Recipe)

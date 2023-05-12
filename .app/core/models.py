@@ -1,5 +1,6 @@
 """Database models"""
 
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, 
@@ -50,3 +51,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     #overriding the username field to be the email
     USERNAME_FIELD = 'email'
+    
+
+#Basic model base.
+class Recipe(models.Model): 
+    """Recipe Object"""
+    
+    """Owner of the recipe, the AUTH_USER_MODEL was defined in the setting.py file, 
+    the cascade means that if we delete the user, the recipes belonging to the user will be deleted as weel. 
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete= models.CASCADE, 
+    )
+    
+    
+    title = models.CharField(max_length= 255)
+    description = models.TextField(blank=True)
+    time_minutes = models.IntegerField()
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    link = models.CharField(max_length=255, blank=True)
+    
+    """
+    this allows for the object to return itself and the display info will be the title, if we don't specify this, it will display the id
+    """
+    def __str__(self):
+        return self.title
