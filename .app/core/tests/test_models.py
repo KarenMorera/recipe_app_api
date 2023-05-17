@@ -5,6 +5,13 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from core import models
 
+#Helpful function. 
+def create_user(email='test@example.com', password='pass1234'):
+    """Create and return a new user""" 
+    return get_user_model().objects.create_user(email, password)
+    
+
+
 class ModelTests(TestCase):
 
     def test_create_user_with_email_successful(self): 
@@ -70,3 +77,14 @@ class ModelTests(TestCase):
        
        self.assertEqual(str(recipe), recipe.title)
        
+
+#-----------------TEST FOR TAG MODEL ----------------
+
+    def test_create_tag(self): 
+        """Test creating a tag is successful, test that instance is created successfully"""
+        #User that is going to be assigned to the tag
+        user = create_user()
+        tag = models.Tag.objects.create(user=user, name='Tag1')
+        
+        #Convert tag into string. 
+        self.assertEqual(str(tag), tag.name)

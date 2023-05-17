@@ -10,7 +10,10 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import Recipe
+from core.models import(
+    Recipe, 
+    Tag
+)
 
 from recipe.serializers import (
     RecipeSerializer, 
@@ -274,3 +277,79 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
         #We verify that the recipe still exists after the attempt of deletion.
         self.assertTrue(Recipe.objects.filter(id=recipe.id).exists())
+        
+        
+#------------TEST TO CREATE TAG-------------        
+    def test_create_recipe_with_new_tags(self): 
+        """Test creating a recipe with new tags"""
+        
+        """We create a new recipe with a list of tags inside the object"""
+        payload = {
+            'title': 'Thai Prawn Curry', 
+            'time_minutes': 30, 
+            'price': Decimal('2.30'), 
+            'tags': [{'name': 'Thai'}, {'name': 'Dinner'}]
+        }
+        
+        """We make the request POST and tell the format is json"""
+        res = self.client.post(RECIPES_URL, payload, format='json')
+        
+        """We check that it was created successfully"""
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        
+        """We get the recipes only for the authenticated user, in this case should be only 1"""
+        recipes = Recipe.objects.filter(user = self.user)
+        """We check that in fact, the recipes count is 1 because that is the only recipe we added for this test"""
+        self.assertEqual(recipes.count(), 1)
+        """We assign to the recipe object the first and only value from the list recipes taken from the DB"""
+        recipe = recipes[0]
+        """We check that the recipe only has 2 tags because that is the ammount of tags that we added to the recipe object"""
+        self.assertEqual(recipe.tags.count(), 2)
+        
+        """We want to iterate the tags present in the recipe object
+        We compare the tags name value from the recipe we just created(payload) with the recipe tags from the recipe
+        taken from the database(recipe)
+        We want to check that they exist. 
+        """
+        for tag in payload['tags']: 
+            exists = recipe.tags.filter(
+                name = tag['name'], 
+                user=self.user, 
+            ).exists()
+            self.assertTrue(exists)
+            
+    def test_create_recipe_with_existing_tags(self): 
+        """Test creating a recioe with existing tag"""
+        """We create a new tag"""
+        tag_indian = Tag.objects.create(user=self.user, name='Indian')
+        
+        """We create a recipe, but we add a tag that is already created"""
+        payload = {
+            'title' : 'Pongal', 
+            'time_minutes': 60, 
+            'price': Decimal('4.50'), 
+            'tags': [{'name': 'Indian'}, {'name': 'Breakfast'}]
+        }
+        
+        """We make the POST method of creation of the recipe"""
+        res = self.client.post(RECIPES_URL, payload, format='json')
+        """We check that it was created successfully"""
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        """We filter all the recipes created by the authenticated user"""
+        recipes = Recipe.objects.filter(user=self.user)
+        """We check that the number of recipes retrieved is just 1 because we only created 1 in this test"""
+        self.assertEqual(recipes.count(), 1)
+        """We assigned the first value of the list to a variable."""
+        recipe = recipes[0]
+        """We check the recipe tag count is 2 because those were the ones we added. and we also want to check
+        there is not a duplicate tag created, because again, we assigned an existing tag to the recipe, we dont want for it to be created
+        again, we want for it to be ASSIGNED to the recipe."""
+        self.assertEqual(recipe.tags.count(), 2)
+        self.assertIn(tag_indian, recipe.tags.all())
+        
+        for tag in payload['tags']: 
+            exists = recipe.tags.filter(
+                name=tag['name'], 
+                user=self.user,
+            ).exists()
+            self.assertTrue(exists)
