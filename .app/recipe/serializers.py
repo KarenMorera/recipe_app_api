@@ -11,7 +11,7 @@ from core.models import(
 )
 """We need the tag serializer on top because we are going to be doing nested serializers and we need the tag to be defined first"""
 class TagSerializer(serializers.ModelSerializer): 
-    """Serializer for tags"""
+    """Serializer for tags test"""
     
     class Meta: 
         model = Tag
