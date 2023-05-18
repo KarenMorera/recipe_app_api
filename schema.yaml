@@ -211,7 +211,7 @@ paths:
       operationId: recipe_tags_partial_update
       description: |-
         Generic view set is a generic view set so that we can define the actions that we want or need.
-        Manage tags in the database.
+        Manage tags in the database. Modifying the schema
       parameters:
         - in: path
           name: id
