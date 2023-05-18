@@ -1,6 +1,6 @@
 openapi: 3.0.3
 x-stoplight:
-  id: tojvedp8y519x
+  id: 4f11qf748p7wh
 info:
   title: ''
   version: 0.0.0
@@ -157,7 +157,7 @@ paths:
       operationId: recipe_tags_list
       description: |-
         Generic view set is a generic view set so that we can define the actions that we want or need.
-        Manage tags in the database. nn
+        Manage tags in the database.
       tags:
         - recipe
       security:
@@ -542,7 +542,7 @@ components:
         - email
         - password
       x-stoplight:
-        id: 4q097ozkitvj2
+        id: gwzrfittcngm3
     PatchedRecipeDetail:
       type: object
       description: Serializer for recipe detail view
@@ -571,7 +571,7 @@ components:
         description:
           type: string
       x-stoplight:
-        id: im4dnhmlvzi05
+        id: i9tavbdwvehpv
     PatchedTag:
       type: object
       description: Serializer for tags
@@ -583,7 +583,7 @@ components:
           type: string
           maxLength: 255
       x-stoplight:
-        id: og591g4zp6zru
+        id: sw75fcq79dr2k
     PatchedUser:
       type: object
       description: Serializer for the user object
@@ -601,7 +601,7 @@ components:
           type: string
           maxLength: 255
       x-stoplight:
-        id: fqfdvn7cohyrz
+        id: 9r8s25iyv2pdo
     Recipe:
       type: object
       description: Serializer for recipes
@@ -633,7 +633,7 @@ components:
         - time_minutes
         - title
       x-stoplight:
-        id: g7hk5e3cbmpx2
+        id: 5ez6id516jvgo
     RecipeDetail:
       type: object
       description: Serializer for recipe detail view
@@ -667,7 +667,7 @@ components:
         - time_minutes
         - title
       x-stoplight:
-        id: zdq95c56ejqyt
+        id: lb77gsg57kkrz
     Tag:
       type: object
       description: Serializer for tags
@@ -682,7 +682,7 @@ components:
         - id
         - name
       x-stoplight:
-        id: tgaq7n243fo9x
+        id: nlyd5uf1emwkz
     User:
       type: object
       description: Serializer for the user object
@@ -704,7 +704,7 @@ components:
         - name
         - password
       x-stoplight:
-        id: puwrzctgo2odx
+        id: vf2wv4idgjcs4
   securitySchemes:
     basicAuth:
       type: http
