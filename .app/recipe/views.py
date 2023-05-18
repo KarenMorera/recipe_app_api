@@ -66,7 +66,7 @@ class TagViewSet(mixins.DestroyModelMixin,
                  mixins.ListModelMixin,
                  viewsets.GenericViewSet): 
     """Generic view set is a generic view set so that we can define the actions that we want or need. 
-    Manage tags in the database. 
+    Manage tags in the database. Altered this comment
     """
     
     serializer_class = serializers.TagSerializer
